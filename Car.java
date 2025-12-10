@@ -1,67 +1,86 @@
-/*this class can add or remove a passenger from a car and keeps track of how many seats are left */
 import java.util.ArrayList;
 
 public class Car {
 
+/*Class attributes */
 public int maxCapacity;
-public ArrayList<Passenger> passengers;
+private ArrayList<Passenger> passengers;
 private int capacity;
 public int seatsRemaining;
 public boolean addPassenger; 
-/*
- * this constructor initializes the passengers arraylist and the max capacity
+/**
+ * Constructor
+ * @param max
  */
 public Car(int max){
     this.maxCapacity = max;
     passengers = new ArrayList<Passenger>();
 }
-/*
- * returns the capcity of the car
+/**
+ * Gets the capacity value per car
+ * @return int capacity
  */
 public int getCapacity(){
-    return capacity;
+    return maxCapacity;
 }
-/*
- * calculates how many seats are left with the current capacity
+
+/**
+ * Calculates how many seats are remaining
+ * @return int seatsRemaining
  */
 public int seatsRemaining(){
     seatsRemaining = maxCapacity - capacity;
     return seatsRemaining;
 }
 
-/*
- * adds designated passenger to car or returns false because the train is full
+/**
+ * Adds passenger to car if they are not already on it
+ * @param P
+ * @return boolean
  */
 public boolean addPassenger(Passenger P){
 //add passenger to arraylist and add 1 to capacity
     if(capacity < maxCapacity){
-        passengers.add(P);
-        capacity += 1;
-        return true;
-    } else{
-    System.out.println("The train is full");
-    return false;
-}
+        if (passengers.contains(P)){
+            System.out.println("Passenger already boarded the car.");
+            return false;
+        }else{
+            passengers.add(P);
+            capacity += 1;
+            System.out.println("Passenger has boarded car.");
+            return true;
+    }} else{
+        System.out.println("The train is full");
+        return false;
+        }
 }
 
-/*
- * removes a passenger from the arraylist and removes one from the capacity
+/**
+ * Removes a passenger from the arraylist and removes one from the capacity
+ * @param P
+ * @return boolean
  */
 public boolean removePassenger(Passenger P){
 //remove passenger from arraylist and remove 1 from capacity
-    for (int n = 0; n < passengers.size(); n++){
-        if(P == passengers.get(n)){
-            passengers.remove(P);
-            capacity -= 1;
-            return true;
+    boolean removed = true;
+    if(passengers.contains(P)){
+        for (int n = 0; n < passengers.size(); n++){
+            if(P == passengers.get(n)){
+                passengers.remove(P);
+                capacity -= 1;
+                System.out.println("Passenger has left car.");
+                removed = true;
+            }
         }
-    }
-    System.out.println("This passenger is not onboard.");
-    return false;
+    } else{
+            System.out.println("This passenger is not onboard.");
+            removed = false;
+        }
+        return removed;
 }
 
-/*
- * prints the passengers in the car or prints that there are no passengers in the car
+/**
+ * Prints the passengers in the car or prints that there are no passengers in the car
  */
 public void printManifest(){
     for (int j = 0; j < passengers.size(); j++){
@@ -71,4 +90,9 @@ public void printManifest(){
         System.out.println("There are no passengers in this car.");
     }
 }
+
+// public static void main(String[] args) {
+//     Car c = new Car(5);
+//     System.out.println(c.getCapacity());
+// }
 }

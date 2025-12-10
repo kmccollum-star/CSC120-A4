@@ -1,0 +1,11 @@
+Added Javadoc comments to all classes
+Changed method parameters in class Engine to match the required method parameters
+Added if statement to go method in class Engine so fuel is only subtracted if the current fuel is greater than or equal to 5
+Changed fuelType attribute in class Engine to private
+Changed passenger arraylist in class Car to private
+Added another if-else statement in the class Car addPassenger method to return false if the passenger is already on the car
+Added boolean removed and if-else statement in class Car removePassenger method
+Made class Train attributes private
+Changed class Car getCapacity() to return call the maxCapacity, rahter than a different variable
+Fixed the seats remaining class
+

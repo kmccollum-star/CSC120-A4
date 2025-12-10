@@ -6,11 +6,17 @@ import java.util.ArrayList;
 
 public class Train {
 
-    ArrayList<Car> cars;
-    Engine engine;
+    /*Class attributes */
+    private ArrayList<Car> cars;
+    private final Engine engine;
     
-    /*
-     * this constructor assigns arraylists to the cars arraylist and engine arraylists
+    /**
+     * Constructor, makes a new engine, and adds cars to arraylist
+     * @param fuelType
+     * @param currentFuelLevel
+     * @param fuelCapacity
+     * @param nCars
+     * @param passengerCapacity
      */
     public Train(FuelType fuelType, double currentFuelLevel, 
                 double fuelCapacity, int nCars, 
@@ -20,25 +26,30 @@ public class Train {
             Car a = new Car(passengerCapacity);
             cars.add(a);
         }
+        //Train train = new Train(FuelType.ELECTRIC, 150.0, 150.0, 7, 10)
         engine = new Engine(FuelType.ELECTRIC, 10.0, 150.0);
     }
 
-    /*
-     * returns the engine type
+    /**
+     * Returns the engine information
+     * @return engine
      */
     public Engine getEngine(){
         return engine;
     }
 
-    /*
-     * returns the i'th car
+    /**
+     * Returns information about a specific car
+     * @param i
+     * @return car i
      */
     public Car getCar(int i){
         return cars.get(i);
     }
 
-    /*
-     * combines the max capacity of each car combined
+    /**
+     * Returns the mac capacity of a specific car
+     * @return int
      */
     public int getMaxCapacity(){
         int maxCapacity = 0; 
@@ -48,32 +59,46 @@ public class Train {
        return maxCapacity;
     }
 
-    /*
-     * subtracts the capacity of each car from the max capacity and returns that value
+    /**
+     * Subtracts the capacity of each car from the max capacity and returns that value
+     * @return int
      */
     public int seatsRemaining(){
         int seats = 0;
+        if(cars.size() == 0){
+            return 0;
+        } else{
         for(int q = 0; q < cars.size(); q++){
-            seats = getMaxCapacity() - cars.get(q).getCapacity() + seats;
+            seats += cars.get(q).seatsRemaining(); // + getMaxCapacity();
+            }
         }
         return seats;
     }
 
-    /*
-     * prints transcript of the passengers on all the cars combined
+    /**
+     * Prints transcript of the passengers on all the cars combined
      */
     public void printManifest(){
         for(int j = 0; j < cars.size(); j++){
             cars.get(j).printManifest();
         }
     }
-/*
- * create a train, passengers, and cars
- */
+
+    /**
+     * Tests methods
+     * @param args
+     */
     public static void main(String[] args) {
-        Train train = new Train(FuelType.ELECTRIC, 10.0, 150.0, 1, 1);
+        Train train = new Train(FuelType.ELECTRIC, 10.0, 150.0, 1, 6);
         Passenger k = new Passenger("k");
+        
+        Car c = new Car(2);
+        ArrayList<Car> cars = new ArrayList<Car>();
+        cars.add(c);
+        
         train.getCar(0).addPassenger(k);
-        train.printManifest();
+        System.out.println(train.getEngine().getMaxFuel());
+        System.out.println(train.seatsRemaining());
+        System.out.println(train.getMaxCapacity());
     }
 }

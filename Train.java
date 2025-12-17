@@ -4,7 +4,7 @@
  */
 import java.util.ArrayList;
 
-public class Train {
+public class Train implements TrainRequirements{
 
     /*Class attributes */
     private ArrayList<Car> cars;
@@ -22,11 +22,11 @@ public class Train {
                 double fuelCapacity, int nCars, 
                 int passengerCapacity){
         cars = new  ArrayList<Car>();
-        for(int m=0; m < nCars; m++){
+        
+        for(int m = 0; m < nCars; m++){
             Car a = new Car(passengerCapacity);
             cars.add(a);
         }
-        //Train train = new Train(FuelType.ELECTRIC, 150.0, 150.0, 7, 10)
         engine = new Engine(FuelType.ELECTRIC, 10.0, 150.0);
     }
 
@@ -53,7 +53,7 @@ public class Train {
      */
     public int getMaxCapacity(){
         int maxCapacity = 0; 
-        for (int k = 0; k<cars.size(); k++){
+        for (int k = 0; k<cars.size(); k++) {
             maxCapacity = cars.get(k).getCapacity() + maxCapacity;
         }
        return maxCapacity;
@@ -65,13 +65,14 @@ public class Train {
      */
     public int seatsRemaining(){
         int seats = 0;
-        if(cars.size() == 0){
+        if(cars.size() == 0) {
             return 0;
         } else{
         for(int q = 0; q < cars.size(); q++){
             seats += cars.get(q).seatsRemaining(); // + getMaxCapacity();
             }
         }
+
         return seats;
     }
 
@@ -79,13 +80,12 @@ public class Train {
      * Prints transcript of the passengers on all the cars combined
      */
     public void printManifest(){
-        for(int j = 0; j < cars.size(); j++){
+        for(int j = 0; j < cars.size(); j++) {
             cars.get(j).printManifest();
         }
     }
 
-    /**
-     * Tests methods
+    /**Main method for testing
      * @param args
      */
     public static void main(String[] args) {

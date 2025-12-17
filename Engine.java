@@ -2,7 +2,7 @@
  * this class refuels, decreases, and prints information about the current fuel level
  */
 
-public class Engine {
+public class Engine implements EngineRequirements{
 
 private FuelType fuelType;
 private double currentFuel;
@@ -29,18 +29,17 @@ public void refuel(){
 
 /**
  * Decreases fuel level and returns if there is any fuel left
- * @return boolean
+ * @return true if fuel level is above 0 and false if otherwise
  */
-public boolean go(){
+public Boolean go(){
     if (currentFuel >= 5.0){
         currentFuel = currentFuel - 5.0;
-    //prints some useful info (e.g., remaining fuel level)
         System.out.println("Remaining fuel level: " + currentFuel);
     } else {
         System.out.println("Remaining fuel level is 0.");
     }
-    //returns true if fuel level is above 0 and false if otherwise
-    if(currentFuel>0){
+
+    if(currentFuel > 0) {
         return true;
     } else{
         return false;
@@ -50,9 +49,9 @@ public boolean go(){
 /**
  * Returns the engine's fuel type
  * @param fuelType
- * @return fuelType
+ * @return the engine's fuel type
  */
-FuelType getFuelType(){
+public FuelType getFuelType(){
     return fuelType;
 }
 
@@ -61,7 +60,7 @@ FuelType getFuelType(){
  * @param maxFuel
  * @return max fuel level
  */
-double getMaxFuel(){
+public double getMaxFuel(){
     return maxFuel;
 }
 
@@ -69,12 +68,12 @@ double getMaxFuel(){
  * Returns the current fuel level
  * @return double currentFuel
  */
-double getCurrentFuel(){
+public double getCurrentFuel(){
     return currentFuel;
 }
 
 /**
- * Tests the methods by adding an engine and running go()
+ * Main method for testing
  * @param args
  */
 public static void main(String[] args) {

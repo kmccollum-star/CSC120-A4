@@ -1,10 +1,14 @@
+/**
+ * This class adds passengers and removes passenger from a designated car
+ */
+
 import java.util.ArrayList;
 
-public class Car {
+public class Car implements CarRequirements{
 
 /*Class attributes */
 public int maxCapacity;
-private ArrayList<Passenger> passengers;
+private ArrayList<Passenger> passengerList;
 private int capacity;
 public int seatsRemaining;
 public boolean addPassenger; 
@@ -14,7 +18,7 @@ public boolean addPassenger;
  */
 public Car(int max){
     this.maxCapacity = max;
-    passengers = new ArrayList<Passenger>();
+    passengerList = new ArrayList<Passenger>();
 }
 /**
  * Gets the capacity value per car
@@ -38,18 +42,17 @@ public int seatsRemaining(){
  * @param P
  * @return boolean
  */
-public boolean addPassenger(Passenger P){
+public Boolean addPassenger(Passenger P){
 //add passenger to arraylist and add 1 to capacity
     if(capacity < maxCapacity){
-        if (passengers.contains(P)){
-            System.out.println("Passenger already boarded the car.");
+        if (passengerList.contains(P)){
             return false;
         }else{
-            passengers.add(P);
+            passengerList.add(P);
             capacity += 1;
-            System.out.println("Passenger has boarded car.");
             return true;
-    }} else{
+        }
+    } else{
         System.out.println("The train is full");
         return false;
         }
@@ -60,39 +63,38 @@ public boolean addPassenger(Passenger P){
  * @param P
  * @return boolean
  */
-public boolean removePassenger(Passenger P){
-//remove passenger from arraylist and remove 1 from capacity
+public Boolean removePassenger(Passenger P){
     boolean removed = true;
-    if(passengers.contains(P)){
-        for (int n = 0; n < passengers.size(); n++){
-            if(P == passengers.get(n)){
-                passengers.remove(P);
+    if(passengerList.contains(P)){
+        for (int n = 0; n < passengerList.size(); n++){
+            if(P == passengerList.get(n)){
+                passengerList.remove(P);
                 capacity -= 1;
-                System.out.println("Passenger has left car.");
                 removed = true;
             }
         }
     } else{
-            System.out.println("This passenger is not onboard.");
-            removed = false;
-        }
-        return removed;
+        removed = false;
+    }
+    
+    return removed;
 }
 
 /**
  * Prints the passengers in the car or prints that there are no passengers in the car
  */
 public void printManifest(){
-    for (int j = 0; j < passengers.size(); j++){
-        System.out.println(passengers.get(j));
+    for (int j = 0; j < passengerList.size(); j++){
+        System.out.println(passengerList.get(j));
     }
-    if (passengers.size()==0){
+
+    if (passengerList.size()==0){
         System.out.println("There are no passengers in this car.");
     }
 }
 
-// public static void main(String[] args) {
-//     Car c = new Car(5);
-//     System.out.println(c.getCapacity());
-// }
+public static void main(String[] args) {
+    Car c = new Car(5);
+    System.out.println(c.getCapacity());
+}
 }
